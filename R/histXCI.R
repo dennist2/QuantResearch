@@ -36,9 +36,9 @@ histXCI <- function(file){
   day <- stringr::str_replace(day,"_","/")
   
   
-  date <- as.Date(day,format="%m/%d")
+  date <- zoo::as.Date(day,format="%m/%d")
   
-  data <- read.csv(file)
+  data <- utils::read.csv(file)
   
   data <- data.frame(Date=date,Chart=dtype,data)
   
