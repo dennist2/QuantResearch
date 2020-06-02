@@ -21,4 +21,6 @@ Imports:
     magrittr,
     xts,
     utils,
-    here
+    here,
+    rPython,
+    reticulate
