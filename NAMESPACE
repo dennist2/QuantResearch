@@ -3,6 +3,7 @@
 export("%>%")
 export(dum9)
 export(histXCI)
+import(quantmod)
 importFrom(magrittr,"%>%")
 importFrom(stringr,str_locate)
 importFrom(stringr,str_remove)

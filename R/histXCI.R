@@ -15,6 +15,8 @@
 #' @export 
 #' @importFrom stringr str_sub str_split str_remove str_locate str_replace
 #' @importFrom magrittr %>%
+#' @import quantmod
+#' 
 #' 
  
 histXCI <- function(file){
