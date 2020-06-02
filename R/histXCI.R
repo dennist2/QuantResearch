@@ -11,13 +11,13 @@
 #' }
 #' @seealso 
 #'  \code{\link[stringr]{str_sub}},\code{\link[stringr]{str_split}},\code{\link[stringr]{str_remove}},\code{\link[stringr]{str_locate}},\code{\link[stringr]{str_replace}}
-#' @rdname historicalVI
+#' @rdname histXCI
 #' @export 
 #' @importFrom stringr str_sub str_split str_remove str_locate str_replace
 #' @importFrom magrittr %>%
 #' 
  
-historicalVI <- function(file){
+histXCI <- function(file){
   
   
   epath <- stringr::str_sub(file,start=34)
