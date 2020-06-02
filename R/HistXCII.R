@@ -14,25 +14,11 @@
 #' @rdname historicalVI
 #' @export 
 #' @importFrom stringr str_sub str_split str_remove str_locate str_replace
+#' @importFrom magrittr %>%
+#' 
+ 
 historicalVI <- function(file){
   
-  library(xts)
-  library(quantmod)
-  library(zoo)
-  library(PerformanceAnalytics)
-  library(rugarch)
-  library(knitr)
-  library(pbapply)
-  library(TTR)
-  library(dygraphs)
-  library(lubridate)
-  library(tidyquant)
-  library(timetk)
-  library(rvest)
-  library(purrr)
-  library(stringr)
-  library(dplyr)
-  library(tidyr)
   
   epath <- stringr::str_sub(file,start=34)
   
@@ -79,11 +65,11 @@ historicalVI <- function(file){
   } else {
     too <- data$Date[1]+7
   }
-  
-  prices <- getSymbols(Symbols = symbols, src = 'yahoo',from = data$Date[1]-1,to=too, auto.assign = TRUE) %>%
+
+  prices <- quantmod::getSymbols(Symbols = symbols, src = 'yahoo',from = data$Date[1]-1,to=too, auto.assign = TRUE) %>%
     ## Extract (transformed) data
-    map(~Ad(get(.))) %>%
-    reduce(merge) %>%
+    purrr::map(~Ad(get(.))) %>%
+    purrr::reduce(merge) %>%
     ## Reduce combines from the left
     'colnames<-'(symbols)
   
@@ -92,7 +78,7 @@ historicalVI <- function(file){
   colnames(priced) -> rows
   rownames(priced) -> dates
   
-  tr <- transpose(priced)
+  tr <- data.table::transpose(priced)
   
   prices2 <- do.call(cbind,tr)
   
@@ -123,7 +109,7 @@ historicalVI <- function(file){
   merge(orig_sorted,pricesd_sorted,by = "Symbol") -> bothd
   bothd[order(bothd$Change),-8] -> compare
   
-  str_remove(compare$Price,",") -> compare$Price
+  stringr::str_remove(compare$Price,",") -> compare$Price
   
   as.numeric(as.character(compare$Change)) -> compare$Change
   as.numeric(as.character(compare$Price)) -> compare$Price
