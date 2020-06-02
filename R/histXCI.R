@@ -68,7 +68,7 @@ histXCI <- function(file){
 
   prices <- quantmod::getSymbols(Symbols = symbols, src = 'yahoo',from = data$Date[1]-1,to=too, auto.assign = TRUE) %>%
     ## Extract (transformed) data
-    purrr::map(~Ad(get(.))) %>%
+    purrr::map(~quantmod::Ad(get(.))) %>%
     purrr::reduce(merge) %>%
     ## Reduce combines from the left
     'colnames<-'(symbols)
